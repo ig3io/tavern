@@ -1,11 +1,39 @@
 require "tavern/version"
 
 module Tavern
+
+  STATUS = [:todo, :done]
+  PRIORITY = [:low, :normal, :high]
+
+  class Board
+
+    attr_reader :tasks
+
+    self.class_eval do
+      STATUS.each do |status|
+        define_method status do
+          tasks.collect { |task| task.status? }
+        end
+      end
+      PRIORITY.each do |priority|
+        define_method priority do
+          tasks.collect { |task| task.priority? }
+        end
+      end
+    end
+    
+    def initialize
+      @tasks = []
+    end
+
+    def add(task)
+      @tasks << task
+    end
+
+  end
   
   class Task
     attr_accessor :status, :priority, :text, :tags
-    STATUS = [:todo, :done]
-    PRIORITY = [:low, :normal, :high]
 
     self.class_eval do
       STATUS.each do |s|
