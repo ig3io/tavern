@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["ignacio@ignacio.cat"]
   spec.description   = %q{Simple to-do gem and command line application}
   spec.summary       = %q{Post tasks, complete them, log work, and so on...}
-  spec.homepage      = "http://ignacio.cat/tavern"
+  spec.homepage      = "http://github.com/ignaciocontreras/tavern"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
