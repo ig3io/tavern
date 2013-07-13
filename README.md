@@ -1,6 +1,6 @@
 # Tavern
 
-TODO: Write a gem description
+Simple TODO app. A personal project to learn Ruby and RSpec.
 
 ## Installation
 
@@ -18,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    tavern init .
+    tavern new "send that email" normal
+    tavern new "review that important stuff" high
+    tavern list
+    # 1. [ ] review that important stuff
+    # 2. [ ] send that email
+    tavern 1 done # or tavern "review that " done
+    tavern list
+    # 1. [ ] review that important stuff
+    # 2. [x] review that important stuff
 
 ## Contributing
 
