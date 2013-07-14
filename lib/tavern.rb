@@ -56,11 +56,11 @@ module Tavern
       end
     end
 
-    def initialize(text, options = {}, *tags)
+    def initialize(text, options = {})
+      self.text = text
       self.status = options[:status] ||:todo
       self.priority = options[:priority] || :normal
-      self.text = text
-      self.tags = tags || []
+      self.tags = options[:tags] || []
     end
 
   end
