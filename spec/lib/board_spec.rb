@@ -31,4 +31,19 @@ describe Tavern::Board do
     end
   end
 
+  context "#remove" do
+
+      let(:task) { double(text: "to delete", priority: :low, status: :done) }
+
+      it "should remove an existing task" do
+        board.add(task)
+        expect { board.delete(task) }.to change { board.tasks.include?(task) }.from(true).to(false)
+      end
+
+      it "should raise a TavernError if the task is not included in tasks" do
+        expect { board.delete(task) }.to raise_exception(Tavern::TavernError)
+      end
+  
+  end
+
 end
