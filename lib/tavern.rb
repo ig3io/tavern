@@ -14,12 +14,12 @@ module Tavern
     self.class_eval do
       STATUS.each do |status|
         define_method status do
-          tasks.collect { |task| task.send("#{status}?") }
+          tasks.select { |task| task.send("#{status}?") }
         end
       end
       PRIORITY.each do |priority|
         define_method priority do
-          tasks.collect { |task| task.send("#{priority}?") }
+          tasks.select { |task| task.send("#{priority}?") }
         end
       end
     end
@@ -28,13 +28,15 @@ module Tavern
       @tasks = []
     end
 
-    def add(task)
-      @tasks << task
+    def add(*tasks)
+      tasks.each { |task| @tasks << task }
     end
 
-    def delete(task)
-      @tasks.delete(task) do
-        raise TavernError, "#{task} is not included in #{self} tasks"
+    def delete(*tasks)
+      tasks.each do |task|
+        @tasks.delete(task) do
+          raise TavernError, "#{task} is not included in #{self} tasks"
+        end
       end
     end
 
