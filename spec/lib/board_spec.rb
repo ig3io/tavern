@@ -5,6 +5,16 @@ describe Tavern::Board do
   let(:status_list) { [:todo, :done] }
   let(:priorities) { [:low, :normal, :high] }
   
+  let(:tasks) do
+    list = []
+    Tavern::PRIORITY.each do |priority|
+      Tavern::STATUS.each do |status|
+        list << Tavern::Task.new("a thing", priority: priority, status: status)
+      end
+    end
+    list
+  end
+  
   subject(:board) { Tavern::Board.new }
 
   its(:tasks) { should be_empty }
@@ -29,6 +39,46 @@ describe Tavern::Board do
     priorities.each do |priority|
       should respond_to(priority)
     end
+  end
+
+  context "#priority" do
+
+    before { board.add(*tasks) }
+
+    it "should return a non empty array if there are matches" do
+      Tavern::PRIORITY.each do |priority|
+        board.send(priority).count.should be > 0
+      end
+    end
+
+    it "should return the array of tasks that match the specified priority" do
+      Tavern::PRIORITY.each do |priority|
+        board.send(priority).should include(*tasks.select { |task|
+          task.send("#{priority}?")
+        })
+      end
+    end
+
+  end
+
+  context "#status" do
+
+    before { board.add(*tasks) }
+
+    it "should return a non empty array if there are matches" do
+      Tavern::STATUS.each do |status|
+        board.send(status).count.should be > 0
+      end
+    end
+
+    it "should return the array of tasks that match the specified status" do
+      Tavern::STATUS.each do |status|
+        board.send(status).should include(*tasks.select { |task|
+          task.send("#{status}?")
+        })
+      end
+    end
+
   end
 
   context "#remove" do
