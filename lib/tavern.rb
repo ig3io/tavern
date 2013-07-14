@@ -5,6 +5,8 @@ module Tavern
   STATUS = [:todo, :done]
   PRIORITY = [:low, :normal, :high]
 
+  class TavernError < StandardError; end
+
   class Board
 
     attr_reader :tasks
@@ -28,6 +30,12 @@ module Tavern
 
     def add(task)
       @tasks << task
+    end
+
+    def delete(task)
+      @tasks.delete(task) do
+        raise TavernError, "#{task} is not included in #{self} tasks"
+      end
     end
 
   end
