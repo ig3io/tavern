@@ -68,7 +68,7 @@ describe Tavern::Task do
   context 'with tags on initialization' do
     it_behaves_like 'tagged' do
       let(:tagged) {
-        Tavern::Task.new(text, *tags)
+        Tavern::Task.new(text, tags: tags)
       }
     end
   end
