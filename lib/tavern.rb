@@ -14,12 +14,12 @@ module Tavern
     self.class_eval do
       STATUS.each do |status|
         define_method status do
-          tasks.collect { |task| task.status? }
+          tasks.collect { |task| task.send("#{status}?") }
         end
       end
       PRIORITY.each do |priority|
         define_method priority do
-          tasks.collect { |task| task.priority? }
+          tasks.collect { |task| task.send("#{priority}?") }
         end
       end
     end
